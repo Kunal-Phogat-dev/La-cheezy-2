@@ -29,6 +29,41 @@ function showTab(name) {
 
 /* ----- Active nav link on scroll ----- */
 var sections = document.querySelectorAll('section[id]');
+
+/* ----- Mobile nav toggle ----- */
+var navToggle = document.querySelector('.nav-toggle');
+var navLinks  = document.querySelector('.nav-links');
+var isNavOpen = false;
+
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', function () {
+    isNavOpen = !isNavOpen;
+
+    if (isNavOpen) {
+      navLinks.style.display       = 'flex';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.position      = 'absolute';
+      navLinks.style.top           = '64px';
+      navLinks.style.left          = '0';
+      navLinks.style.right         = '0';
+      navLinks.style.background    = '#ffffff';
+      navLinks.style.padding       = '16px 20px';
+      navLinks.style.borderBottom  = '2px solid #FFBF3F';
+      navLinks.style.zIndex        = '99';
+      navLinks.style.gap           = '16px';
+    } else {
+      navLinks.style.display = 'none';
+    }
+  });
+
+  /* Close menu when any nav link is clicked */
+  navLinks.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      isNavOpen = false;
+      navLinks.style.display = 'none';
+    });
+  });
+}
 var navAnchors = document.querySelectorAll('.nav-links a');
 
 function setActiveLink() {

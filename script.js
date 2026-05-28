@@ -109,3 +109,61 @@ document.querySelectorAll('.deal-card').forEach(function(card) {
     }
   });
 });
+
+/* ----- Gallery Lightbox ----- */
+var galleryImages = Array.from(document.querySelectorAll('.gallery-item img'));
+var lightbox      = document.getElementById('lightbox');
+var lbImg         = document.getElementById('lbImg');
+var lbCaption     = document.getElementById('lbCaption');
+var lbClose       = document.getElementById('lbClose');
+var lbPrev        = document.getElementById('lbPrev');
+var lbNext        = document.getElementById('lbNext');
+var currentIndex  = 0;
+
+function openLightbox(index) {
+  currentIndex = index;
+  var img = galleryImages[index];
+  lbImg.src        = img.src;
+  lbImg.alt        = img.alt;
+  lbCaption.textContent = img.alt;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function showPrev() {
+  currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+  openLightbox(currentIndex);
+}
+
+function showNext() {
+  currentIndex = (currentIndex + 1) % galleryImages.length;
+  openLightbox(currentIndex);
+}
+
+/* Click on each gallery image to open */
+galleryImages.forEach(function(img, i) {
+  img.addEventListener('click', function() { openLightbox(i); });
+});
+
+/* Controls */
+lbClose.addEventListener('click', closeLightbox);
+lbPrev.addEventListener('click', showPrev);
+lbNext.addEventListener('click', showNext);
+
+/* Click outside image to close */
+lightbox.addEventListener('click', function(e) {
+  if (e.target === lightbox) closeLightbox();
+});
+
+/* Keyboard: Escape, Left, Right arrow keys */
+document.addEventListener('keydown', function(e) {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft')  showPrev();
+  if (e.key === 'ArrowRight') showNext();
+});

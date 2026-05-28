@@ -857,15 +857,16 @@ footer {
 
 /* ===== DEAL CARD POPUP ===== */
 .deal-card {
-  position: relative;   /* add this — needed for popup positioning */
+  position: relative;
+  cursor: pointer;
 }
 
+/* Popup — desktop hover only */
 .deal-popup {
-  display: none;
   position: absolute;
   bottom: calc(100% + 12px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(8px);
   width: 260px;
   background: var(--white);
   border-radius: 14px;
@@ -875,17 +876,14 @@ footer {
   z-index: 50;
   pointer-events: none;
   opacity: 0;
-  transform: translateX(-50%) translateY(8px);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .deal-card:hover .deal-popup {
-  display: block;
   opacity: 1;
   transform: translateX(-50%) translateY(0px);
 }
 
-/* Little arrow pointing down */
 .deal-popup::after {
   content: '';
   position: absolute;
@@ -932,16 +930,53 @@ footer {
   text-align: center;
 }
 
-/* Mobile — show below card instead of above */
-@media (max-width: 680px) {
-  .deal-popup {
-    bottom: auto;
-    top: calc(100% + 12px);
+/* ---- MOBILE: inline expand instead of floating popup ---- */
+@media (max-width: 768px) {
+  .deal-card {
+    overflow: hidden;
   }
-  .deal-popup::after {
-    bottom: auto;
-    top: -8px;
+
+  .deal-popup {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin-top: 0;
+    box-shadow: none;
     border-top: none;
-    border-bottom: 8px solid var(--white);
+    border-radius: 0;
+    pointer-events: none;
+    transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+  }
+
+  .deal-popup::after { display: none !important; }
+
+  .deal-card.open .deal-popup {
+    opacity: 1;
+    max-height: 220px;
+    padding: 12px 0 4px;
+    margin-top: 10px;
+    pointer-events: auto;
+    border-top: 2px dashed #E8D5C4;
+  }
+
+  .deal-card::after {
+    content: '▾';
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 1rem;
+    color: var(--red);
+    transition: transform 0.3s;
+    pointer-events: none;
+  }
+
+  .deal-card.open::after {
+    transform: rotate(180deg);
   }
 }

@@ -1,6 +1,5 @@
 /* ============================================
    style.css — La Cheezy Website
-   Author: La Cheezy, Ganesh Nagar
    ============================================ */
 
 /* ===== CSS VARIABLES ===== */
@@ -18,9 +17,7 @@
 }
 
 /* ===== RESET ===== */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -81,7 +78,6 @@ nav {
   font-family: var(--font-head);
   font-size: 1.7rem;
   color: var(--red);
-  letter-spacing: -0.5px;
 }
 .nav-logo span { color: var(--yellow); }
 
@@ -103,25 +99,27 @@ nav {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2.5px;
+  height: 3px;
   background: var(--red);
   transition: width 0.3s ease;
 }
 .nav-links a:hover::after,
-.nav-links a.active-link::after { width: 100%; }
+.nav-links a.active-link::after {
+  width: 100%;
+}
 .nav-links a:hover,
-.nav-links a.active-link { color: var(--red); }
+.nav-links a.active-link {
+  color: var(--red);
+}
 
 .nav-cta {
   background: var(--red);
   color: var(--white);
   font-weight: 800;
-  font-size: 0.95rem;
   padding: 10px 22px;
   border-radius: 50px;
-  transition: all 0.2s;
 }
-.nav-cta:hover { background: #c72f2f; transform: translateY(-1px); }
+.nav-cta:hover { background: #c72f2f; }
 
 .nav-toggle {
   display: none;
@@ -130,15 +128,13 @@ nav {
   cursor: pointer;
 }
 .nav-toggle span {
-  display: block;
   width: 26px;
   height: 2.5px;
   background: var(--brown);
   border-radius: 4px;
-  transition: 0.3s;
 }
 
-/* Mobile Nav */
+/* Mobile Menu */
 @media (max-width: 680px) {
   .nav-links {
     display: none;
@@ -147,7 +143,7 @@ nav {
     top: 70px;
     left: 0;
     right: 0;
-    background: var(--white);
+    background: white;
     padding: 20px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     gap: 16px;
@@ -158,29 +154,46 @@ nav {
   .nav-toggle { display: flex; }
 }
 
-/* ===== MENU TABS ===== */
+/* ===== MENU TABS (with underline) ===== */
 .menu-tabs {
   display: flex;
-  gap: 12px;
+  gap: 15px;
   flex-wrap: wrap;
   margin-bottom: 40px;
 }
 .tab-btn {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 0.95rem;
   padding: 12px 26px;
-  border-radius: 50px;
-  border: 2px solid var(--brown);
   background: transparent;
+  border: 2px solid var(--brown);
+  border-radius: 50px;
   color: var(--brown);
   cursor: pointer;
   transition: all 0.3s;
+  position: relative;
 }
 .tab-btn.active,
 .tab-btn:hover {
   background: var(--brown);
-  color: var(--white);
+  color: white;
+}
+
+/* Underline Version (Alternative) */
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: var(--red);
+  transition: width 0.4s ease;
+}
+.tab-btn.active::after,
+.tab-btn:hover::after {
+  width: 70%;
 }
 
 /* Menu Content */
@@ -193,23 +206,19 @@ nav {
   display: grid !important;
 }
 
-/* Menu Card */
+/* Menu Cards */
 .menu-card {
-  background: var(--white);
+  background: white;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.2s;
   display: flex;
   flex-direction: column;
 }
 .menu-card:hover { transform: translateY(-5px); }
 .menu-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
 .menu-card-body { padding: 16px; flex-grow: 1; }
-.menu-card-name { font-family: var(--font-head); font-size: 1.15rem; margin-bottom: 4px; }
-.menu-card-price { font-family: var(--font-head); font-size: 1.3rem; color: var(--red); }
 
-/* Rest of your CSS (deals, gallery, contact, footer) remains same */
-.deals-grid, .gallery-grid, .contact-grid, footer { /* ... your existing styles ... */ }
-
-/* I kept only important parts above. You can keep the rest of your CSS as is for deals/gallery etc. */
+/* Keep your existing styles for deals, gallery, contact, footer */
+.deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+/* ... rest of your CSS can stay ... */

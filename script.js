@@ -37,7 +37,10 @@ var isNavOpen = false;
 
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', function () {
-    isNavOpen = !isNavOpen;
+  isNavOpen = !isNavOpen;
+  navToggle.setAttribute('aria-expanded', isNavOpen ? 'true' : 'false'); // ADD THIS LINE
+  navToggle.setAttribute('aria-label', isNavOpen ? 'Close navigation menu' : 'Open navigation menu'); // ADD THIS LINE
+  // ... rest of your existing code
 
     if (isNavOpen) {
       navLinks.style.display       = 'flex';

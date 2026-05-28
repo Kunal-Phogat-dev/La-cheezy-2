@@ -91,3 +91,21 @@ function setActiveLink() {
 
 window.addEventListener('scroll', setActiveLink);
 setActiveLink(); // run once on page load
+
+/* ----- Deal card tap to expand (mobile) ----- */
+document.querySelectorAll('.deal-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    /* Only toggle on mobile */
+    if (window.innerWidth <= 768) {
+      var isOpen = card.classList.contains('open');
+      /* Close all others first */
+      document.querySelectorAll('.deal-card').forEach(function(c) {
+        c.classList.remove('open');
+      });
+      /* Toggle clicked one */
+      if (!isOpen) {
+        card.classList.add('open');
+      }
+    }
+  });
+});

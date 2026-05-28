@@ -130,6 +130,11 @@ function openLightbox(index) {
   lbImg.alt        = img.alt;
   lbCaption.textContent = img.alt;
   lightbox.classList.add('open');
+  function openLightbox(index) {
+  // ... your existing code ...
+  document.body.style.overflow = 'hidden';
+  lightbox.focus(); // ADD THIS LINE — moves focus into dialog for screen readers
+}
   document.body.style.overflow = 'hidden';
 }
 

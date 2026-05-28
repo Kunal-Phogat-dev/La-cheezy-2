@@ -1,0 +1,58 @@
+/* ----- Menu tab switching ----- */
+function showTab(name) {
+  // Hide all menu sections
+  document.querySelectorAll('.menu-section').forEach(function(section) {
+    section.classList.remove('active');
+  });
+
+  // Deactivate all buttons
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.classList.remove('active');
+    btn.setAttribute('aria-selected', 'false');
+  });
+
+  // Show the selected panel
+  const panel = document.getElementById('tab-' + name);
+  if (panel) {
+    panel.classList.add('active');
+  }
+
+  // Activate the correct button (more reliable matching)
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    const btnText = btn.textContent.toLowerCase();
+    if (btnText.includes(name)) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+    }
+  });
+}
+
+/* ----- Active nav link on scroll ----- */
+var sections = document.querySelectorAll('section[id]');
+var navAnchors = document.querySelectorAll('.nav-links a');
+
+function setActiveLink() {
+  var scrollPos = window.scrollY + 120;
+  var found = false;
+
+  sections.forEach(function(section) {
+    if (
+      !found &&
+      section.offsetTop <= scrollPos &&
+      section.offsetTop + section.offsetHeight > scrollPos
+    ) {
+      navAnchors.forEach(function(a) {
+        a.classList.remove('active-link');
+        a.style.color = '';
+      });
+      var match = document.querySelector('.nav-links a[href="#' + section.id + '"]');
+      if (match) {
+        match.classList.add('active-link');
+        found = true;
+      }
+    }
+  });
+}
+
+window.addEventListener('scroll', setActiveLink);
+setActiveLink(); // run once on page load

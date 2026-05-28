@@ -830,35 +830,10 @@ footer {
   }
 }
 
-@media (max-width: 680px) {
-
-  .nav-links,
-  .nav-cta {
-    display: none;
-  }
-
-  .nav-toggle {
-    display: flex;
-  }
-
-  .section {
-    padding: 56px 0;
-  }
-
-  h2.section-title {
-    font-size: 1.9rem;
-  }
-
-  .combo-spotlight {
-    text-align: center;
-    justify-content: center;
-  }
-}
-
-/* ===== DEAL CARD POPUP ===== */
-.deal-card {
-  position: relative;
-  cursor: pointer;
+function openLightbox(index) {
+  // ... your existing code ...
+  document.body.style.overflow = 'hidden';
+  lightbox.focus(); // ADD THIS LINE — moves focus into dialog for screen readers
 }
 
 /* Popup — desktop hover only */

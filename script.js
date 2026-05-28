@@ -37,11 +37,38 @@ var isNavOpen = false;
 
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', function () {
-  isNavOpen = !isNavOpen;
-  navToggle.setAttribute('aria-expanded', isNavOpen ? 'true' : 'false'); // ADD THIS LINE
-  navToggle.setAttribute('aria-label', isNavOpen ? 'Close navigation menu' : 'Open navigation menu'); // ADD THIS LINE
-  // ... rest of your existing code
+    /* Only run on mobile */
+    if (window.innerWidth > 680) return;
 
+    var isOpen = navLinks.classList.contains('mobile-open');
+    if (isOpen) {
+      navLinks.classList.remove('mobile-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open navigation menu');
+    } else {
+      navLinks.classList.add('mobile-open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navToggle.setAttribute('aria-label', 'Close navigation menu');
+    }
+  });
+
+  navLinks.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (window.innerWidth > 680) return;
+      navLinks.classList.remove('mobile-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open navigation menu');
+    });
+  });
+
+  /* Reset nav on resize to desktop */
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 680) {
+      navLinks.classList.remove('mobile-open');
+      navLinks.style.cssText = '';
+    }
+  });
+}
     if (isNavOpen) {
       navLinks.style.display       = 'flex';
       navLinks.style.flexDirection = 'column';
